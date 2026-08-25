@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b1oanne1u8r4m"]
+
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_014kd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fvach"]
+sky_top_color = Color(0.14492932, 0.40967077, 0.9044294, 1)
+sky_horizon_color = Color(0.83291095, 0.8836591, 0.949274, 1)
+ground_bottom_color = Color(0.52446353, 0.6811003, 0.99146205, 1)
+ground_horizon_color = Color(0.6220998, 0.83462006, 0.9980356, 1)
+
+[sub_resource type="Sky" id="Sky_kfvix"]
+sky_material = SubResource("ProceduralSkyMaterial_fvach")
+
+[sub_resource type="Environment" id="Environment_mq8aq"]
+background_mode = 2
+sky = SubResource("Sky_kfvix")
+
+[node name="level1" type="Node3D" unique_id=1062733337]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2025222650]
+environment = SubResource("Environment_mq8aq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=419975598]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=167955192]
+transform = Transform3D(21.279602, 0, 0, 0, 1.6167203, 0, 0, 0, 15.942351, 0, 0, 0)
+use_collision = true
+
+[node name="ProtoController" parent="." unique_id=950201329 instance=ExtResource("1_014kd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6365757, 1.4903278, 0.4294834)
