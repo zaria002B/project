@@ -41,9 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.006469488)
 
 [node name="hands" parent="Head/Camera3D" unique_id=611685754 instance=ExtResource("2_wr06p")]
-transform = Transform3D(-1, -1.8509834e-15, -8.742278e-08, -5.069214e-08, 0.81472296, 0.57985044, 7.122536e-08, 0.57985044, -0.81472296, -0.007103443, -1.2236446, -0.6491552)
+transform = Transform3D(-1, -1.8509834e-15, -8.742278e-08, -4.713577e-08, 0.84219676, 0.53917027, 7.3627206e-08, 0.53917027, -0.84219676, -0.007103443, -1.2073442, -0.43529493)
 
-[node name="Skeleton3D" parent="Head/Camera3D/hands/UnityRig_Metarig" parent_id_path=PackedInt32Array(611685754, 1356647231) index="0" unique_id=1768230820]
+[node name="Skeleton3D" parent="Head/Camera3D/hands/UnityRig_Metarig" parent_id_path=PackedInt32Array(611685754, 1644598660) index="0" unique_id=252412856]
 bones/0/rotation = Quaternion(-0.70884, -0.49881023, -0.30863956, -0.39175996)
 bones/1/rotation = Quaternion(-0.39202845, 0.31528896, -0.100971885, 0.8583189)
 bones/2/rotation = Quaternion(-0.017765906, 0.0018291026, 0.07725295, 0.99685156)
@@ -83,7 +83,7 @@ bones/33/rotation = Quaternion(-0.16236207, 0.019214485, -0.032206822, 0.9860183
 bones/34/rotation = Quaternion(-0.043748837, -0.043505553, -0.059933066, 0.99629384)
 bones/35/rotation = Quaternion(-0.26606268, -0.27660003, -0.3076083, 0.870678)
 
-[node name="AnimationPlayer" parent="Head/Camera3D/hands" index="2" unique_id=1579040581]
+[node name="AnimationPlayer" parent="Head/Camera3D/hands" index="2" unique_id=584864028]
 autoplay = &"IDEL"
 speed_scale = 0.4
 

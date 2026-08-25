@@ -29,6 +29,7 @@ extends CharacterBody3D
 @export var input_sprint: String = "sprint"
 @export var input_freefly: String = "freefly"
 
+var invent_open: bool=false
 var mouse_captured: bool = false
 var look_rotation: Vector2
 var move_speed: float = 0.0
@@ -144,9 +145,13 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("place"):
 		play_animation("place")
 
-	elif Input.is_action_just_pressed("Invent_check"):
-		play_animation("invent_check")
-		
+	if Input.is_action_just_pressed("Invent_check"):
+		if not invent_open:
+			invent_open = true
+			play_animation("invent_check")
+		else:
+			invent_open = false
+			play_animation("invent_close")
 
 
 
@@ -168,6 +173,11 @@ func play_animation(animation_name: String) -> void:
 
 
 func _on_animation_finished(anim_name: StringName) -> void:
+
+	if anim_name == "invent_check":
+		animation_player.pause()
+		return
+
 	if anim_name != "IDEL":
 		play_animation("IDEL")
 # ==================================================
