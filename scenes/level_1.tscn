@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://p3pyqo8ijcvv" path="res://scenes/table.tscn" id="3_4nkto"]
 [ext_resource type="PackedScene" uid="uid://6voev4udxest" path="res://scenes/table_small.tscn" id="4_fcfvj"]
 [ext_resource type="PackedScene" uid="uid://6gghg328632f" path="res://scenes/barrel.tscn" id="5_pa8r4"]
+[ext_resource type="PackedScene" uid="uid://dcf6oimr68n3k" path="res://scenes/keyring.tscn" id="6_fcfvj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fvach"]
 sky_top_color = Color(0.14492932, 0.40967077, 0.9044294, 1)
@@ -144,4 +145,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.849573, 0.049999237, 7.710
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.124638, 0.05000019, 7.429703)
 
 [node name="barrel" parent="." unique_id=2145575779 instance=ExtResource("5_pa8r4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5322866, 6.6455765, 7.9489727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5322866, 0.40906286, 10.113796)
+
+[node name="keyring" parent="." unique_id=2111431164 instance=ExtResource("6_fcfvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.704979, 0.069874845, 4.1654916)

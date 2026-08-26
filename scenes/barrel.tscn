@@ -8,11 +8,11 @@ data = PackedVector3Array(-0.19929999, 0.9756, -0.88159996, 0.17999999, 1.5406, 
 [node name="barrel" type="RigidBody3D" unique_id=2145575779]
 linear_damp = 9.341
 
-[node name="barrel" parent="." unique_id=1317975275 instance=ExtResource("1_q36op")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63780975, 0, 0.2679596)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=929516487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63780975, 0, 0.2679596)
 shape = SubResource("ConcavePolygonShape3D_ptqd7")
+
+[node name="barrel" parent="." unique_id=1317975275 instance=ExtResource("1_q36op")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.63780975, 0, 0.2679596)
 
 [editable path="barrel"]
