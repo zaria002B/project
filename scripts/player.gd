@@ -17,7 +17,7 @@ extends CharacterBody3D
 @export var look_speed: float = 0.002
 @export var base_speed: float = 4.0
 @export var jump_velocity: float = 5.5
-@export var sprint_speed: float = 10.0
+@export var sprint_speed: float = 7.0
 @export var freefly_speed: float = 25.0
 
 @export_group("Input Actions")
@@ -155,8 +155,16 @@ func _physics_process(delta: float) -> void:
 
 
 
+
 	move_and_slide()
 
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var body = collision.get_collider()
+		if body is RigidBody3D:
+			var push_dir = -collision.get_normal()
+			body.apply_central_impulse(push_dir * 2.5)
+			
 
 # ==================================================
 # ANIMATION FUNCTION
