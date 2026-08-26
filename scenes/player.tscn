@@ -16,13 +16,11 @@ height = 1.8
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=950201329]
 script = ExtResource("1_g2uji")
-can_sprint = true
 can_freefly = true
 input_left = "move_left"
 input_right = "move_right"
 input_forward = "move_up"
 input_back = "move_down"
-input_jump = "jump"
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1411601478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -43,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.006469488)
 [node name="hands" parent="Head/Camera3D" unique_id=394151897 instance=ExtResource("2_wr06p")]
 transform = Transform3D(-1, 5.5902485e-15, -8.742278e-08, -4.345722e-08, 0.8676975, 0.49709272, 7.585652e-08, 0.49709272, -0.8676975, 0, -1.2168608, -0.40156478)
 
-[node name="Skeleton3D" parent="Head/Camera3D/hands/UnityRig_Metarig" parent_id_path=PackedInt32Array(394151897, 90523814) index="0" unique_id=1568947262]
+[node name="Skeleton3D" parent="Head/Camera3D/hands/UnityRig_Metarig" parent_id_path=PackedInt32Array(394151897, 1780179349) index="0" unique_id=1292286011]
 bones/0/rotation = Quaternion(-0.7286416, -0.4844763, -0.2860008, -0.39059922)
 bones/1/rotation = Quaternion(-0.3760183, 0.29149428, -0.09845924, 0.8740407)
 bones/2/rotation = Quaternion(-0.017765906, 0.0018291026, 0.07725295, 0.99685156)
@@ -83,7 +81,7 @@ bones/33/rotation = Quaternion(-0.1023962, 0.09446467, 0.0023401969, 0.9902454)
 bones/34/rotation = Quaternion(-0.00068165135, 0.0103525445, -0.025852935, 0.9996119)
 bones/35/rotation = Quaternion(-0.1782749, -0.12080812, -0.2421147, 0.9460466)
 
-[node name="AnimationPlayer" parent="Head/Camera3D/hands" index="2" unique_id=131958321]
+[node name="AnimationPlayer" parent="Head/Camera3D/hands" index="2" unique_id=1956192304]
 speed_scale = 0.464
 
 [editable path="Head/Camera3D/hands"]

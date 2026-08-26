@@ -16,8 +16,7 @@ extends CharacterBody3D
 @export_group("Speeds")
 @export var look_speed: float = 0.002
 @export var base_speed: float = 4.0
-@export var jump_velocity: float = 5.0
-
+@export var jump_velocity: float = 5.5
 @export var sprint_speed: float = 7.0
 @export var freefly_speed: float = 25.0
 
