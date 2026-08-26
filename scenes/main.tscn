@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfrylhpmt7oau"]
 
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://76lpksyqwx1m" path="res://assets/brackeys_3d_game_assets/dungeon_assets/props/plate_food.glb" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://76lpksyqwx1m" path="res://assets/models/dungeon_assets/props/plate_food.glb" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://ba7hhvhddnv8a" path="res://scripts/lastplate.gd" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://sd52ar4b5bbw" path="res://scenes/death_zone.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bcue0d6uw4ops" path="res://scenes/finished_area.tscn" id="5_tefeu"]
