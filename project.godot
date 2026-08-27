@@ -15,13 +15,17 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="dark"
-run/main_scene="uid://b1oanne1u8r4m"
+run/main_scene="uid://ds5hoc72lro33"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 AudioStreamPlayer3d="*res://scenes/audio_stream_player_3d.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
 
 [input]
 
