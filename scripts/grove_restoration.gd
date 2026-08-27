@@ -3,7 +3,9 @@ extends Node
 var restored_count: int = 0
 var total_essences: int = 3
 var player_near_tree: bool = false
-@onready var sacred_glow: OmniLight3D = get_tree().current_scene.get_node("SacredTree/SacredGlow")
+#@onready var sacred_glow: OmniLight3D = get_tree().current_scene.get_node("SacredTree/SacredGlow")
+@onready var sacred_glow: OmniLight3D = $SacredTree/SacredGlow
+
 
 func _ready() -> void:
 	print("player_near_tree exists? ", "player_near_tree" in self)
