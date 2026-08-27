@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1626r837aefc" path="res://scenes/instruction_ui.gd" id="1_yrumf"]
 
-[node name="InstructionUi" type="Control" unique_id=1975162411]
+[node name="InstructionUi" type="Control" unique_id=1282244588]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ offset_left = -1.0
 offset_top = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="." unique_id=1565319401]
 layout_mode = 1
@@ -37,6 +38,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+bbcode_enabled = true
 text = "               																						
 
 
@@ -50,4 +57,5 @@ text = "
 
 
 																													GOAL:
-		        Find the hidden key and unlock the door to escape the dungeon. Press any key to start... Adjust the key names and goal text to match 					                                                               your actual current bindings and your real objective."
+		        Find the hidden key and unlock the door to escape the dungeon. Press any key to start... Adjust the key names and goal text to match 					                                                          your actual current bindings and your real objective.
+"
