@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $Head/Camera3D/hands/AnimationPlayer
 @onready var grab_ray: RayCast3D = $Head/Camera3D/GrabRay
 @onready var grab_anchor: Marker3D = $Head/Camera3D/GrabAnchor
-@onready var inventory_ui:Control = $"../InventoryUi" 
+
 ## Can we move around?
 @export var can_move: bool = true
 ## Are we affected by gravity?
@@ -123,9 +123,9 @@ func _physics_process(delta: float) -> void:
 
 		if animation_player.current_animation == "sprint":
 			play_animation("IDEL")
+
 	# Movement
 	if can_move:
-
 		var move_dir := (
 			transform.basis *
 			Vector3(input_dir.x, 0, input_dir.y)
@@ -137,7 +137,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 			velocity.z = move_toward(velocity.z, 0, move_speed)
-
 	else:
 		velocity.x = 0
 		velocity.y = 0
@@ -153,27 +152,41 @@ func _physics_process(delta: float) -> void:
 			try_grab()
 
 	elif Input.is_action_just_pressed("place"):
-		if grabbed_object:
+		# Sacred Tree Restoration       
+		if GroveRestoration.player_near_tree:
+			if Inventory.items.has("Essence"):
+				Inventory.remove_last_item()
+				GroveRestoration.restore_essence()
+			else:
+				print("You need an Essence to restore the Sacred tree!")
+
+		# Normal place behavior when not near tree.
+		elif grabbed_object:
 			place_object()
 
+	# Inventory
 	if Input.is_action_just_pressed("Invent_check"):
 		if not invent_open:
 			invent_open = true
 			play_animation("invent_check")
-			inventory_ui.show_inventory()
 		else:
 			invent_open = false
-			play_animation("invent_close") 
-			inventory_ui.hide_inventory()
+			play_animation("invent_close")
+
+	# Drop item
+	if Input.is_action_just_pressed("drop_item"):
+		drop_item()
 
 	move_and_slide()
 
-	# Keep held object following the anchor (must run after move_and_slide)
+	# Keep held object following the anchor
 	update_grabbed_object(delta)
 
+	# Push rigid bodies
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var body = collision.get_collider()
+
 		if body is RigidBody3D and body != grabbed_object:
 			var push_dir = -collision.get_normal()
 			body.apply_central_impulse(push_dir * 2.5)
@@ -188,6 +201,7 @@ func try_grab() -> void:
 		return
 
 	var collided = grab_ray.get_collider()
+
 	if collided is RigidBody3D:
 		grabbed_object = collided
 		grabbed_object.angular_velocity = Vector3.ZERO
@@ -210,8 +224,10 @@ func throw_object() -> void:
 		return
 
 	var obj = grabbed_object
+
 	obj.remove_collision_exception_with(self)
 	grabbed_object = null
+
 	obj.apply_impulse(-head.global_basis.z * throw_force)
 	play_animation("place")
 
@@ -225,6 +241,7 @@ func update_grabbed_object(delta: float) -> void:
 	var direction := target_pos - current_pos
 
 	var required_velocity := direction / delta
+
 	if required_velocity.length() > max_grab_speed:
 		required_velocity = required_velocity.normalized() * max_grab_speed
 
@@ -233,7 +250,30 @@ func update_grabbed_object(delta: float) -> void:
 
 
 # ==================================================
-# ANIMATION FUNCTION
+# INVENTORY
+# ==================================================
+
+func drop_item() -> void:
+	var item_name = Inventory.remove_last_item()
+
+	if item_name == "":
+		return
+
+	var pickup_scene: PackedScene = preload("res://scenes/pickup_item.tscn")
+	var new_pickup = pickup_scene.instantiate()
+
+	new_pickup.item_name = item_name
+
+	get_tree().current_scene.add_child(new_pickup)
+
+	new_pickup.global_position = (
+		head.global_position +
+		(-head.global_basis.z * 1.5)
+	)
+
+
+# ==================================================
+# ANIMATION
 # ==================================================
 
 func play_animation(animation_name: String) -> void:
@@ -251,13 +291,15 @@ func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "invent_check":
 		animation_player.pause()
 		return
-		
+
 	if anim_name == "grab" and grabbed_object:
 		animation_player.pause()
 		return
-		
+
 	if anim_name != "IDEL":
 		play_animation("IDEL")
+
+
 # ==================================================
 # LOOK
 # ==================================================
@@ -265,6 +307,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 func rotate_look(rot_input: Vector2):
 
 	look_rotation.x -= rot_input.y * look_speed
+
 	look_rotation.x = clamp(
 		look_rotation.x,
 		deg_to_rad(-85),
