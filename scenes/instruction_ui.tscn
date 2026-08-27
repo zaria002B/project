@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bdpet3fry2g2i"]
 
+[ext_resource type="Script" uid="uid://c1626r837aefc" path="res://scenes/instruction_ui.gd" id="1_yrumf"]
+
 [node name="InstructionUi" type="Control" unique_id=1975162411]
 layout_mode = 3
 anchors_preset = 15
@@ -17,6 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yrumf")
 
 [node name="ColorRect" type="ColorRect" parent="Control" unique_id=679330236]
 layout_mode = 1
@@ -34,3 +37,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "               																						
+
+
+
+
+																										HOW TO PLAY WASD -
+	 Move Shift - Sprint    	 ,Space - Jump ,   	 Left Click - Grab object ,		Right Click - Place object,			 Tab - Open Inventory ,		R - Drop item 
+	W-Move Forward,		 A-Move Left,	 S-Move Back,	 D-Move Right.
+
+
+
+
+																													GOAL:
+		        Find the hidden key and unlock the door to escape the dungeon. Press any key to start... Adjust the key names and goal text to match 					                                                               your actual current bindings and your real objective."

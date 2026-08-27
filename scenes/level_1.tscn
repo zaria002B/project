@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://6voev4udxest" path="res://scenes/table_small.tscn" id="4_fcfvj"]
 [ext_resource type="PackedScene" uid="uid://6gghg328632f" path="res://scenes/barrel.tscn" id="5_pa8r4"]
 [ext_resource type="PackedScene" uid="uid://dcf6oimr68n3k" path="res://scenes/keyring.tscn" id="6_fcfvj"]
+[ext_resource type="PackedScene" uid="uid://bdpet3fry2g2i" path="res://scenes/instruction_ui.tscn" id="10_2y5yt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fvach"]
 sky_top_color = Color(0.14492932, 0.40967077, 0.9044294, 1)
@@ -118,3 +119,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.813607, 0.5, -2.3549278)
 
 [node name="keyring" parent="." unique_id=1780419509 instance=ExtResource("6_fcfvj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9470563, 1.5198749, -3.5258207)
+
+[node name="InstructionUi" parent="." unique_id=1975162411 instance=ExtResource("10_2y5yt")]
