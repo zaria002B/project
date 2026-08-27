@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b1oanne1u8r4m"]
 
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://scenes/player.tscn" id="1_014kd"]
+[ext_resource type="PackedScene" uid="uid://d2324optvcvsx" path="res://scenes/pickup_item.tscn" id="1_15mv3"]
+[ext_resource type="PackedScene" uid="uid://dr1v3uqs6yfwk" path="res://scenes/inventory_ui.tscn" id="1_e3sih"]
 [ext_resource type="PackedScene" uid="uid://xe7etbmjm007" path="res://scenes/floor_wood.tscn" id="2_bswci"]
 [ext_resource type="PackedScene" uid="uid://p3pyqo8ijcvv" path="res://scenes/table.tscn" id="3_4nkto"]
 [ext_resource type="PackedScene" uid="uid://c3tmktpah5d3c" path="res://scenes/crates_stacked.tscn" id="3_fcfvj"]
@@ -26,6 +28,11 @@ albedo_color = Color(0.49, 0.26590666, 0.2156, 0.6)
 roughness = 0.57
 
 [node name="level1" type="Node3D" unique_id=1062733337]
+
+[node name="InventoryUi" parent="." unique_id=1738194159 instance=ExtResource("1_e3sih")]
+
+[node name="death_zone" parent="." unique_id=1794219106 instance=ExtResource("1_15mv3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7805789, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2025222650]
 environment = SubResource("Environment_mq8aq")

@@ -1,7 +1,9 @@
 extends CharacterBody3D
 
 @onready var animation_player: AnimationPlayer = $Head/Camera3D/hands/AnimationPlayer
-
+@onready var grab_ray: RayCast3D = $Head/Camera3D/GrabRay
+@onready var grab_anchor: Marker3D = $Head/Camera3D/GrabAnchor
+@onready var inventory_ui:Control = $"../InventoryUi" 
 ## Can we move around?
 @export var can_move: bool = true
 ## Are we affected by gravity?
@@ -20,20 +22,25 @@ extends CharacterBody3D
 @export var sprint_speed: float = 7.0
 @export var freefly_speed: float = 25.0
 
+@export_group("Grabbing")
+@export var max_grab_speed: float = 10.0
+@export var throw_force: float = 6.0
+
 @export_group("Input Actions")
-@export var input_left: String = "ui_left"
-@export var input_right: String = "ui_right"
-@export var input_forward: String = "ui_up"
-@export var input_back: String = "ui_down"
-@export var input_jump: String = "ui_accept"
+@export var input_left: String = "left"
+@export var input_right: String = "right"
+@export var input_forward: String = "up"
+@export var input_back: String = "down"
+@export var input_jump: String = "jump"
 @export var input_sprint: String = "sprint"
 @export var input_freefly: String = "freefly"
 
-var invent_open: bool=false
+var invent_open: bool = false
 var mouse_captured: bool = false
 var look_rotation: Vector2
 var move_speed: float = 0.0
 var freeflying: bool = false
+var grabbed_object: RigidBody3D = null
 
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
@@ -136,35 +143,94 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 
 	# ------------------------------------------------
-	# HAND ANIMATIONS
+	# HAND ANIMATIONS / GRAB & PLACE
 	# ------------------------------------------------
 
 	if Input.is_action_just_pressed("grab"):
-		play_animation("grab")
+		if grabbed_object:
+			throw_object()
+		else:
+			try_grab()
 
 	elif Input.is_action_just_pressed("place"):
-		play_animation("place")
+		if grabbed_object:
+			place_object()
 
 	if Input.is_action_just_pressed("Invent_check"):
 		if not invent_open:
 			invent_open = true
 			play_animation("invent_check")
+			inventory_ui.show_inventory()
 		else:
 			invent_open = false
-			play_animation("invent_close")
-
-
-
+			play_animation("invent_close") 
+			inventory_ui.hide_inventory()
 
 	move_and_slide()
+
+	# Keep held object following the anchor (must run after move_and_slide)
+	update_grabbed_object(delta)
 
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var body = collision.get_collider()
-		if body is RigidBody3D:
+		if body is RigidBody3D and body != grabbed_object:
 			var push_dir = -collision.get_normal()
 			body.apply_central_impulse(push_dir * 2.5)
-			
+
+
+# ==================================================
+# GRAB / PLACE / THROW
+# ==================================================
+
+func try_grab() -> void:
+	if not grab_ray.is_colliding():
+		return
+
+	var collided = grab_ray.get_collider()
+	if collided is RigidBody3D:
+		grabbed_object = collided
+		grabbed_object.angular_velocity = Vector3.ZERO
+		grabbed_object.add_collision_exception_with(self)
+		play_animation("grab")
+
+
+func place_object() -> void:
+	if not grabbed_object:
+		return
+
+	grabbed_object.remove_collision_exception_with(self)
+	grabbed_object.angular_velocity = Vector3.ZERO
+	grabbed_object = null
+	play_animation("place")
+
+
+func throw_object() -> void:
+	if not grabbed_object:
+		return
+
+	var obj = grabbed_object
+	obj.remove_collision_exception_with(self)
+	grabbed_object = null
+	obj.apply_impulse(-head.global_basis.z * throw_force)
+	play_animation("place")
+
+
+func update_grabbed_object(delta: float) -> void:
+	if not grabbed_object:
+		return
+
+	var target_pos: Vector3 = grab_anchor.global_position
+	var current_pos: Vector3 = grabbed_object.global_position
+	var direction := target_pos - current_pos
+
+	var required_velocity := direction / delta
+	if required_velocity.length() > max_grab_speed:
+		required_velocity = required_velocity.normalized() * max_grab_speed
+
+	grabbed_object.linear_velocity = required_velocity
+	grabbed_object.angular_velocity *= 0.5
+
 
 # ==================================================
 # ANIMATION FUNCTION
@@ -185,7 +251,11 @@ func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "invent_check":
 		animation_player.pause()
 		return
-
+		
+	if anim_name == "grab" and grabbed_object:
+		animation_player.pause()
+		return
+		
 	if anim_name != "IDEL":
 		play_animation("IDEL")
 # ==================================================
