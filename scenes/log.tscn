@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://75kb71prxka0"]
+
+[ext_resource type="PackedScene" uid="uid://c577y6qyw41r5" path="res://log.glb" id="1_spugk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_spugk"]
+height = 4.0371447
+radius = 0.6448275
+
+[node name="log" type="RigidBody3D" unique_id=1335307902]
+
+[node name="log" parent="." unique_id=84362762 instance=ExtResource("1_spugk")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1, -2, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=140730269]
+transform = Transform3D(1.3065773, 0, 0, 0, -5.7112313e-08, 1.3065773, 0, -1.3065773, -5.7112313e-08, -0.45583862, -0.12957466, 0.69994664)
+shape = SubResource("CylinderShape3D_spugk")
+
+[editable path="log"]

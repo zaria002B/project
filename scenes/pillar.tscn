@@ -6,10 +6,10 @@
 height = 4.0
 radius = 0.75
 
-[node name="pillar" type="RigidBody3D" unique_id=697458079]
-mass = 20.0
+[node name="pillar" type="StaticBody3D" unique_id=1156759434]
 
 [node name="pillar" parent="." unique_id=2036987972 instance=ExtResource("1_fv82l")]
+transform = Transform3D(15.704267, 0, 0, 0, 15.704267, 0, 0, 0, 15.704267, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1438932761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2040138e-05, 2, 5.9604645e-08)

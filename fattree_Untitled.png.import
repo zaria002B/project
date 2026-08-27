@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv6g2qxppq3ec"
-path.s3tc="res://.godot/imported/grass_basic_atlas.png-b03c468b9964c267a755536ea97be48a.s3tc.ctex"
+uid="uid://c6ia7vqd2vvoo"
+path.s3tc="res://.godot/imported/fattree_Untitled.png-9a75d122f451c6afb365bfd9c9da9398.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "8ed791f0a90b8bc6bb6842ee303ce8f1"
+}
 
 [deps]
 
-source_file="res://assets/BinbunGrass/src/texture/basic/grass_basic_atlas.png"
-dest_files=["res://.godot/imported/grass_basic_atlas.png-b03c468b9964c267a755536ea97be48a.s3tc.ctex"]
+source_file="res://fattree_Untitled.png"
+dest_files=["res://.godot/imported/fattree_Untitled.png-9a75d122f451c6afb365bfd9c9da9398.s3tc.ctex"]
 
 [params]
 

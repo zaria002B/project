@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ctcfmtje57lth"]
+
+[ext_resource type="Texture2D" uid="uid://c6ia7vqd2vvoo" path="res://fattree_Untitled.png" id="1_st0yi"]
+
+[resource]
+resource_name = "Material.003"
+cull_mode = 2
+albedo_texture = ExtResource("1_st0yi")
+metallic = 0.14285715
+roughness = 0.1607143
+metadata/_gltf_primary_texture_coord = 0
