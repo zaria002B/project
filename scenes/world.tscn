@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://ds5hoc72lro33"]
 
+[ext_resource type="PackedScene" uid="uid://bdpet3fry2g2i" path="res://scenes/instruction_ui.tscn" id="1_dss4m"]
 [ext_resource type="Script" uid="uid://dgqq1tf8prx5s" path="res://addons/proton_scatter/src/scatter.gd" id="1_q5onr"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://scenes/player.tscn" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://ca6lyven34w3p" path="res://scenes/grove_restoration.gd" id="2_7t5mc"]
 [ext_resource type="Script" uid="uid://ba8jou0xje0c7" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_jhx03"]
 [ext_resource type="PackedScene" uid="uid://bpfhpmcas5j5g" path="res://LAND.glb" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://b5s7ggmsi8g5u" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="3_o8fc1"]
@@ -167,9 +169,8 @@ stack = Array[ExtResource("3_o8fc1")]([SubResource("Resource_luhhm"), SubResourc
 [sub_resource type="Resource" id="Resource_f17e3"]
 script = ExtResource("10_7iits")
 
-[sub_resource type="Resource" id="Resource_agpp7"]
+[sub_resource type="Resource" id="Resource_8u370"]
 script = ExtResource("10_7iits")
-metadata/_custom_type_script = "uid://devkng6iaf5do"
 
 [sub_resource type="Curve3D" id="Curve3D_lakw3"]
 _data = {
@@ -203,7 +204,7 @@ remove_points_on_miss = false
 script = ExtResource("2_jhx03")
 stack = Array[ExtResource("3_o8fc1")]([SubResource("Resource_817gm"), SubResource("Resource_ggc52"), SubResource("Resource_l8ah6")])
 
-[sub_resource type="Resource" id="Resource_8u370"]
+[sub_resource type="Resource" id="Resource_e68xj"]
 script = ExtResource("10_7iits")
 
 [sub_resource type="Curve3D" id="Curve3D_rga7q"]
@@ -283,13 +284,20 @@ stack = Array[ExtResource("3_o8fc1")]([SubResource("Resource_4wdv8"), SubResourc
 [sub_resource type="Resource" id="Resource_1dgkn"]
 script = ExtResource("10_7iits")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_7pagp"]
+
 [node name="world" type="Node3D" unique_id=1935489659]
+
+[node name="InstructionUi" parent="." unique_id=1282244588 instance=ExtResource("1_dss4m")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=135638706]
 environment = SubResource("Environment_71j4m")
 
+[node name="GroveRestoration" type="Node" parent="." unique_id=775354665]
+script = ExtResource("2_7t5mc")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=273079471]
-transform = Transform3D(1, 0, 0, 0, 0.12608701, 0.9920192, 0, -0.9920192, 0.12608701, 0, 8.04357, 0)
+transform = Transform3D(1, 0, 0, 0, 0.12608701, 0.9920192, 0, -0.9920192, 0.12608701, 0, 3.0435696, 0)
 light_energy = 0.912
 shadow_enabled = true
 
@@ -387,7 +395,7 @@ Performance/chunk_dimensions = Vector3(15, 15, 15)
 
 [node name="ScatterShape" parent="ProtonScatter4" index="1"]
 transform = Transform3D(148.91425, 0, 0, 0, 1, 0, 0, 0, 75.51025, -60.716446, 0, -44.005684)
-shape = SubResource("Resource_agpp7")
+shape = SubResource("Resource_8u370")
 
 [node name="ScatterShape2" type="Node3D" parent="ProtonScatter4" unique_id=1602652916]
 transform = Transform3D(148.91425, 0, 0, 0, 1, 0, 0, 0, 75.51025, -60.716446, 0, -44.005684)
@@ -403,7 +411,7 @@ Performance/chunk_dimensions = Vector3(15, 15, 15)
 
 [node name="ScatterShape" parent="ProtonScatter5" index="1"]
 transform = Transform3D(148.91425, 0, 0, 0, 1, 0, 0, 0, 75.51025, -60.716446, 0, -44.005684)
-shape = SubResource("Resource_8u370")
+shape = SubResource("Resource_e68xj")
 
 [node name="ScatterShape2" type="Node3D" parent="ProtonScatter5" unique_id=995342788]
 transform = Transform3D(148.91425, 0, 0, 0, 1, 0, 0, 0, 75.51025, -60.716446, 0, -44.005684)
@@ -446,6 +454,15 @@ path = "uid://8ay5rlrutcmx"
 transform = Transform3D(43.94976, 0, -8.72439e-07, 0, 1, 0, 1.3098035e-06, 0, 29.274231, 5.518017, 0, -15.470395)
 script = ExtResource("9_2lf6f")
 shape = SubResource("Resource_1dgkn")
+
+[node name="SacredTreeArea" type="Area3D" parent="." unique_id=1313896801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SacredTreeArea" unique_id=760865602]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_7pagp")
+
+[connection signal="body_entered" from="SacredTreeArea" to="GroveRestoration" method="_on_sacred_tree_area_body_entered"]
 
 [editable path="LAND"]
 [editable path="ProtonScatter4"]

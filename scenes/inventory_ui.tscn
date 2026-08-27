@@ -1,6 +1,27 @@
 [gd_scene format=3 uid="uid://dr1v3uqs6yfwk"]
 
-[ext_resource type="Script" uid="uid://doalvx38qrdbo" path="res://scenes/inventory_ui.gd" id="1_tahbm"]
+[sub_resource type="GDScript" id="GDScript_aelj8"]
+script/source = "extends Control
+
+@onready var label: Label = $Control/Label
+
+
+func _ready() -> void:
+	visible = false
+
+
+func refresh() -> void:
+	label.text = \"Inventory: \" + str(Inventory.items)
+
+
+func show_inventory() -> void:
+	refresh()
+	visible = true
+
+
+func hide_inventory() -> void:
+	visible = false
+"
 
 [node name="InventoryUi" type="Control" unique_id=1738194159]
 layout_mode = 3
@@ -9,7 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_tahbm")
+script = SubResource("GDScript_aelj8")
 
 [node name="Control" type="Control" parent="." unique_id=1703021435]
 layout_mode = 1

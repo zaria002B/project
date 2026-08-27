@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $Head/Camera3D/hands/AnimationPlayer
 @onready var grab_ray: RayCast3D = $Head/Camera3D/GrabRay
 @onready var grab_anchor: Marker3D = $Head/Camera3D/GrabAnchor
-@onready var inventory_ui:Control = $"../InventoryUi" 
+
 ## Can we move around?
 @export var can_move: bool = true
 ## Are we affected by gravity?
@@ -160,11 +160,12 @@ func _physics_process(delta: float) -> void:
 		if not invent_open:
 			invent_open = true
 			play_animation("invent_check")
-			inventory_ui.show_inventory()
 		else:
 			invent_open = false
-			play_animation("invent_close") 
-			inventory_ui.hide_inventory()
+			play_animation("invent_close")
+
+	if Input.is_action_just_pressed("drop_item"):
+		drop_item()
 
 	move_and_slide()
 
@@ -233,6 +234,23 @@ func update_grabbed_object(delta: float) -> void:
 
 
 # ==================================================
+# INVENTORY
+# ==================================================
+
+func drop_item() -> void:
+	var item_name = Inventory.remove_last_item()
+	if item_name == "":
+		return
+
+	var pickup_scene: PackedScene = preload("res://scenes/pickup_item.tscn")
+	var new_pickup = pickup_scene.instantiate()
+	new_pickup.item_name = item_name
+
+	get_tree().current_scene.add_child(new_pickup)
+	new_pickup.global_position = head.global_position + (-head.global_basis.z * 1.5)
+
+
+# ==================================================
 # ANIMATION FUNCTION
 # ==================================================
 
@@ -251,11 +269,11 @@ func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "invent_check":
 		animation_player.pause()
 		return
-		
+
 	if anim_name == "grab" and grabbed_object:
 		animation_player.pause()
 		return
-		
+
 	if anim_name != "IDEL":
 		play_animation("IDEL")
 # ==================================================
