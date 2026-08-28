@@ -1,5 +1,6 @@
 extends Area3D
-@onready var proto_controller: CharacterBody3D = $ProtoController
+
+@onready var player: CharacterBody3D = $"../../player"
 
 
 # Called when the node enters the scene tree for the first time.

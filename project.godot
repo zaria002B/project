@@ -21,9 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AudioStreamPlayer3d="*res://scenes/audio_stream_player_3d.tscn"
 Inventory="*uid://d07qf45kcejls"
-GroveRestoration="*uid://buvr3r8diyer8"
 
 [editor_plugins]
 

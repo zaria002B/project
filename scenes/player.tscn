@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bla1tsunc577q" path="res://scripts/player.gd" id="1_g2uji"]
 [ext_resource type="PackedScene" uid="uid://7y15urs538ix" path="res://assets/hands.glb" id="2_wr06p"]
+[ext_resource type="AudioStream" uid="uid://8ltu8bd5kpg1" path="res://music/background/freesound_community-dry-footsteps-39567.mp3" id="3_qhqgy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -86,5 +87,12 @@ bones/35/rotation = Quaternion(-0.26606268, -0.27660003, -0.3076083, 0.870678)
 
 [node name="AnimationPlayer" parent="Head/Camera3D/hands" index="2" unique_id=131958321]
 speed_scale = 0.464
+
+[node name="FootstepTimer" type="Timer" parent="." unique_id=1187970579]
+wait_time = 0.5
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1920742716]
+stream = ExtResource("3_qhqgy")
 
 [editable path="Head/Camera3D/hands"]

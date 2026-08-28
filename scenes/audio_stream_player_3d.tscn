@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dufikr0hgakhl"]
-
-[ext_resource type="AudioStream" uid="uid://d370df7xperly" path="res://music/background/cold-is-comming-389805.mp3" id="1_c66m7"]
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D"]
-stream = ExtResource("1_c66m7")
-autoplay = true

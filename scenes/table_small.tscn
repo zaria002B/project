@@ -6,7 +6,7 @@
 size = Vector3(1.0000001, 1, 1)
 
 [node name="table_small" type="RigidBody3D" unique_id=742945887]
-mass = 7.0
+mass = 20.0
 
 [node name="table_small" parent="." unique_id=137600209 instance=ExtResource("1_drpsf")]
 

@@ -3,7 +3,12 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $Head/Camera3D/hands/AnimationPlayer
 @onready var grab_ray: RayCast3D = $Head/Camera3D/GrabRay
 @onready var grab_anchor: Marker3D = $Head/Camera3D/GrabAnchor
+@onready var footstep_timer: Timer = $FootstepTimer
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer
 
+@export var walk_step_time: float = 0.5
+@export var sprint_step_time: float = 0.3
+var grove_restoration = null
 ## Can we move around?
 @export var can_move: bool = true
 ## Are we affected by gravity?
@@ -11,15 +16,15 @@ extends CharacterBody3D
 ## Can we press to jump?
 @export var can_jump: bool = true
 ## Can we hold to run?
-@export var can_sprint: bool = false
+@export var can_sprint: bool = true
 ## Can we press to enter freefly mode (noclip)?
 @export var can_freefly: bool = false
 
 @export_group("Speeds")
 @export var look_speed: float = 0.002
 @export var base_speed: float = 4.0
-@export var jump_velocity: float = 5.5
-@export var sprint_speed: float = 7.0
+@export var jump_velocity: float = 8.5
+@export var sprint_speed: float = 8.0
 @export var freefly_speed: float = 25.0
 
 @export_group("Grabbing")
@@ -52,6 +57,7 @@ func _ready() -> void:
 	look_rotation.x = head.rotation.x
 	animation_player.animation_finished.connect(_on_animation_finished)
 	play_animation("IDEL")
+	
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -85,6 +91,22 @@ func _physics_process(delta: float) -> void:
 			input_forward,
 			input_back
 		)
+		# Footsteps
+		if is_on_floor() and input_dir != Vector2.ZERO:
+
+			var sprinting := can_sprint and Input.is_action_pressed(input_sprint)
+
+			if sprinting:
+				footstep_timer.wait_time = sprint_step_time
+			else:
+				footstep_timer.wait_time = walk_step_time
+
+			if footstep_timer.is_stopped():
+				audio_stream_player_3d.play()
+				footstep_timer.start()
+
+		else:
+			footstep_timer.stop()
 
 		var motion := (
 			head.global_basis *
@@ -145,25 +167,46 @@ func _physics_process(delta: float) -> void:
 	# HAND ANIMATIONS / GRAB & PLACE
 	# ------------------------------------------------
 
+# GRAB / THROW
 	if Input.is_action_just_pressed("grab"):
+
 		if grabbed_object:
 			throw_object()
 		else:
 			try_grab()
 
+
+	# PLACE
 	elif Input.is_action_just_pressed("place"):
-		# Sacred Tree Restoration       
-		if GroveRestoration.player_near_tree:
-			if Inventory.items.has("Essence"):
-				Inventory.remove_last_item()
-				GroveRestoration.restore_essence()
+
+		grove_restoration = get_tree().get_first_node_in_group("grove_restoration")
+
+		print("================================")
+		print("PLACE BUTTON PRESSED")
+		print("Grove restoration: ", grove_restoration)
+		print("================================")
+
+		if grove_restoration:
+
+			if grove_restoration.is_player_near(self):
+
+				print(">>> TREE PLACEMENT")
+
+				grove_restoration.try_place_item(self)
+
+				return
+
 			else:
-				print("You need an Essence to restore the Sacred tree!")
 
-		# Normal place behavior when not near tree.
-		elif grabbed_object:
+				print(">>> PLAYER NOT INSIDE TREE PLACEMENT AREA")
+
+
+		# Normal placement
+		if grabbed_object:
+
+			print(">>> NORMAL PLACEMENT")
+
 			place_object()
-
 	# Inventory
 	if Input.is_action_just_pressed("Invent_check"):
 		if not invent_open:
@@ -197,30 +240,63 @@ func _physics_process(delta: float) -> void:
 # ==================================================
 
 func try_grab() -> void:
+	print("===== TRY GRAB =====")
+
 	if not grab_ray.is_colliding():
+		print("GrabRay hit NOTHING")
 		return
 
 	var collided = grab_ray.get_collider()
 
+	print("Ray hit: ", collided.name)
+	print("Type: ", collided.get_class())
+
 	if collided is RigidBody3D:
 		grabbed_object = collided
+
 		grabbed_object.angular_velocity = Vector3.ZERO
+		grabbed_object.linear_velocity = Vector3.ZERO
+
 		grabbed_object.add_collision_exception_with(self)
+
+		print(">>> OBJECT GRABBED: ", grabbed_object.name)
+
 		play_animation("grab")
 
-
 func place_object() -> void:
+	print("!!! PLACE OBJECT CALLED !!!")
+
 	if not grabbed_object:
+		print("Nothing to place.")
 		return
 
 	grabbed_object.remove_collision_exception_with(self)
 	grabbed_object.angular_velocity = Vector3.ZERO
-	grabbed_object = null
-	play_animation("place")
 
+	print(">>> OBJECT PLACED")
+
+	grabbed_object = null
+
+	play_animation("place")
+	
+
+func release_held_object() -> void:
+
+	if not grabbed_object:
+		return
+
+	grabbed_object.remove_collision_exception_with(self)
+
+	grabbed_object.linear_velocity = Vector3.ZERO
+	grabbed_object.angular_velocity = Vector3.ZERO
+
+	grabbed_object = null
 
 func throw_object() -> void:
+	print("!!! THROW OBJECT CALLED !!!")
+
 	if not grabbed_object:
+		print("Nothing to throw.")
 		return
 
 	var obj = grabbed_object
@@ -229,8 +305,10 @@ func throw_object() -> void:
 	grabbed_object = null
 
 	obj.apply_impulse(-head.global_basis.z * throw_force)
-	play_animation("place")
 
+	print(">>> OBJECT THROWN")
+
+	play_animation("place")
 
 func update_grabbed_object(delta: float) -> void:
 	if not grabbed_object:
