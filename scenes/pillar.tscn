@@ -12,7 +12,7 @@ radius = 0.75
 transform = Transform3D(15.704267, 0, 0, 0, 15.704267, 0, 0, 0, 15.704267, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1438932761]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2040138e-05, 2, 5.9604645e-08)
+transform = Transform3D(16.130272, 0, 0, 0, 16.130272, 0, 0, 0, 16.130272, -1.335144e-05, 30.161055, 5.9604645e-08)
 shape = SubResource("CylinderShape3D_01pxi")
 
 [editable path="pillar"]
