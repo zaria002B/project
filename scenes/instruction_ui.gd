@@ -1,7 +1,14 @@
 extends Control
+#@onready var proto_controller: CharacterBody3D = $"."
 
-@onready var player: CharacterBody3D = $"../../ProtoController"
-@onready var text_label: RichTextLabel = $RichTextLabel
+
+@onready var rich_text_label: RichTextLabel = $RichTextLabel
+
+
+@onready var player: CharacterBody3D = $"../../player"
+
+
+
 
 var pages: Array[String] = [
 	"""[center][b]THE LAST GROVE[/b][/center]
@@ -71,8 +78,8 @@ func _ready() -> void:
 	player.can_move = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	text_label.bbcode_enabled = true
-	text_label.text = pages[current_page]
+	rich_text_label.bbcode_enabled = true
+	rich_text_label.text = pages[current_page]
 
 
 func _input(event: InputEvent) -> void:
@@ -87,7 +94,7 @@ func show_next_page() -> void:
 	current_page += 1
 	
 	if current_page < pages.size():
-		text_label.text = pages[current_page]
+		rich_text_label.text = pages[current_page]
 	else:
 		start_game()
 

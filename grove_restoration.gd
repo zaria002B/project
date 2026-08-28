@@ -295,8 +295,8 @@ func _on_animation_finished(anim_name: StringName) -> void:
 			print("THE TREE OF LIFE IS RESTORED!")
 			print("================================")
 
-			await get_tree().create_timer(2.0).timeout
+			await get_tree().create_timer(1.0).timeout
 
 			get_tree().change_scene_to_file(
-				"res://scenes/ending.tscn"
+				"res://scenes/GameCompleteui.tscn"
 			)

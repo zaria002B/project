@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ds5hoc72lro33"]
+[gd_scene format=3 uid="uid://ci3qj5tx08smf"]
 
 [ext_resource type="PackedScene" uid="uid://bdpet3fry2g2i" path="res://scenes/instruction_ui.tscn" id="1_dss4m"]
 [ext_resource type="Script" uid="uid://dgqq1tf8prx5s" path="res://addons/proton_scatter/src/scatter.gd" id="1_q5onr"]
